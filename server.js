@@ -10,7 +10,7 @@ dotenv.config();
 
 app.use(
   cors({
-    origin: 'http://localhost:5173',
+    origin: 'https://mern-restaurant-frontend.vercel.app',
     methods: ["POST"],
     credentials: true,
   })
