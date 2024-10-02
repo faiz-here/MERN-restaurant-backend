@@ -19,6 +19,20 @@ export const errorMiddleware = (err, req, res, next) => {
     const validationErrors = Object.values(error.errors).map(err => err.message);
     return next(new ErrorHandler(validationErrors.join(', '), 400));
   }
+   
+  if (err.code === 11000) { // MongoDB duplicate key error code
+    // Check which field caused the duplicate error
+    if (err.keyValue.email) {
+      res.status(400).send({
+        message: "This email already exists. Please use a different email.",
+      });
+    } else  {
+      res.status(400).send({
+        message: "This phone number already exists. Please use a different phone number.",
+      });
+    } 
+  } 
+
 
 
   return res.status(err.statusCode).json({
